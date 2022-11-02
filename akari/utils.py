@@ -95,12 +95,18 @@ def parse_result(result):
     except:
         return ['server-error']
     tags = []
+    rating = ""
     if search_result == 'No relevant matches':
         print('No Match Found')
         tags.append('undefined')
     else:
         print('Match Found')
         alt_string = tables[1].findChildren("img")[0]['alt']
+        rating_index = alt_string.find('Rating:')
+        if rating_index == -1:
+            rating = "unknown"
+        else:
+            rating = alt_string[rating_index+8:rating_index+9]
         tag_string_index = alt_string.find('Tags:')
         if tag_string_index == -1:
             tags.append('undefined')
@@ -109,8 +115,7 @@ def parse_result(result):
             tag_string = tag_string.lower()
             tag_string_formatted = ''.join(c for c in tag_string if c not in ',')
             tags = list(set(tag_string_formatted.split(" ")))
-    return tags
-
+    return tags,rating
 
 """
     Find the anime characters and return the list of them
