@@ -28,6 +28,8 @@ class Option:
     proxy: dict = {}
     format: str
     general_lim: int
+    sfw_rating:list=[]
+    nsfw_rating:list=[]
 
     def __init__(self, argument: argNs):
         if argument is None:
@@ -324,10 +326,28 @@ def read_config(option: Option):
             "format": "${char}+${general}",
             "general_num_limit": "5"
         }
+        config["Rating"]={
+            "nsfw_path":"",
+            "sfw_path":"",
+            "general":{
+                "type":"sfw"
+            },
+            "sensitive":{
+                "type": "sfw"
+            },
+            "questionable":{
+                "type": "nsfw"
+            },
+            "explicit": {
+                "type": "nsfw"
+            },
+        }
         with open(config_path, 'w') as configFile:
             config.write(configFile)
     else:
         config.read(config_path)
+
+    # Load Common Section
     option.format = config["Common"]["format"]
     option.general_lim = int(config["Common"]["general_num_limit"])
     common_conf = config["Common"]
@@ -337,6 +357,19 @@ def read_config(option: Option):
     else:
         option.proxy = None
 
+    # Load Rating Section
+    rating_conf = config["Rating"]
+    for key,value in rating_conf.items():
+        if value is None or value =="":
+            continue
+        typed_value = eval(value)
+        rate_type = typed_value["type"]
+        if rate_type =='sfw':
+            option.sfw_rating.append(key)
+        elif rate_type=='nsfw':
+            option.nsfw_rating.append(key)
+        else:
+            raise ValueError(f"Unsupported {rate_type} in {key}")
 
 """
     Handles the command line arguments

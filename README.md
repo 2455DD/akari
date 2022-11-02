@@ -52,28 +52,71 @@ The configuration file is in
 - Windows:`C:\Users\${Username}\.config\akari`
   - change ``${Username}`` to your PC's username
 
-Including the following part:
+Including the following section:
 
 ### Common
-Common part is under the title of ``[Common]``
+Common section is under the title of ``[Common]``
 
-| Key                 | Value                                     | Default              |
+| Key                 | Description                               | Default              |
 |---------------------|-------------------------------------------|----------------------|
 | `http_proxy`        | your http proxy server's url              | `none`               |
 | `https_proxy`       | your https proxy server's url             | `none`               |
 | `format`            | rename format,only active when using `-r` | `${char}+${general}` |
 | `general_num_limit` | the limit of amount of tag `general`      | `5`                  |
 
+#### Format Placeholder
 
-## Format Placeholder
-
-| Placeholder    | Detail                        | Example          |
+| Placeholder    | Description                   | Example          |
 |----------------|-------------------------------|------------------|
 | `${character}` | Placeholder for Character tag | `inui_toko`      |
 | `${general}`   | Placeholder for General tag   | `1girl`          |
 | `${artist}`    | Placeholder for Artist tag    | `mizuki_hitoshi` |
 | `${copyright}` | Placeholder for Copyright tag | `touhou`         |
 | `${meta}`      | Placeholder for Meta tag      | `translated`     |
+| `${rating}`    | Placeholder for Rating        | `sensitive`      |
+
+### Rating
+Rating section is under the title of ``[Rating]``
+
+this section is used to save your settings about the ratings.
+See [Danbooru Wiki about rating](https://danbooru.donmai.us/wiki_pages/howto%3Arate) to see how 
+rating is tagged.
+
+| Key         | Description                                               | Default |
+|-------------|-----------------------------------------------------------|---------|
+| `sfw_path`  | not implemented   |   |
+| `nsfw_path` | not implemented    ||
+
+#### Subsection: general
+under the title of ``[Rating.general]`` 
+
+| Key           | Description                                               | Default |
+|---------------|-----------------------------------------------------------|---------|
+| `type`        | the type you think this rating is, including `nsfw`,`sfw` | `sfw`     |
 
 
-[TODO](https://github.com/mananapr/akari/issues/1)
+#### Subsection: sensitive
+under the title of ``[Rating.sensitive]`` 
+
+| Key           | Description                                               | Default |
+|---------------|-----------------------------------------------------------|---------|
+| `type`        | the type you think this rating is, including `nsfw`,`sfw` | `sfw`     |
+
+#### Subsection: questionable
+under the title of ``[Rating.questionable]`` 
+
+| Key           | Description                                               | Default |
+|---------------|-----------------------------------------------------------|---------|
+| `type`        | the type you think this rating is, including `nsfw`,`sfw` | `nsfw`  |
+
+#### Subsection: explicit
+under the title of ``[Rating.explicit]`` 
+
+| Key           | Description                                               | Default |
+|---------------|-----------------------------------------------------------|---------|
+| `type`        | the type you think this rating is, including `nsfw`,`sfw` | `nsfw`  |
+
+## TODO
+[TODO in original repo](https://github.com/mananapr/akari/issues/1)
+
+For the TODO in this fork, See [the issue](https://github.com/2455DD/akari/issues)
